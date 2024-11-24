@@ -5,10 +5,12 @@ public:
         long long maxi = 0;
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
-                mini = min(mini, abs(matrix[i][j]));
-                if (matrix[i][j] < 0)
+                if (matrix[i][j] < 0){
                     neg++;
-                maxi += abs(matrix[i][j]);
+                    matrix[i][j] *= -1;
+                }
+                mini = min(mini, matrix[i][j]);
+                maxi += matrix[i][j];
             }
         }
         if (neg % 2 != 0)
