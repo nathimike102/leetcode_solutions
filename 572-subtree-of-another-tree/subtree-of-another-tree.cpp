@@ -19,7 +19,6 @@ public:
         hash += "," + to_string(node->val);
         preorder(node->left, hash);
         preorder(node->right, hash);
-        hash += '#';
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         string str1, str2;
