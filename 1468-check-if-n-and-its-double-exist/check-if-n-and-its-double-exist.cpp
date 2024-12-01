@@ -1,14 +1,11 @@
 class Solution {
 public:
     bool checkIfExist(vector<int>& arr) {
-        map<int, int> mpp;
-        for(int i=0;i<arr.size();i++){
-            mpp[arr[i]]++;
-        }
-        for(int i=0;i<arr.size();i++){
-            if(mpp[arr[i]*2] > 0){
-                if(arr[i] == 0 && mpp[arr[i]] == 1) continue;
-                return true;
+        for (int i = 0; i < arr.size(); i++) {
+            for (int j = i+1; j < arr.size(); j++) {
+                if (arr[i] == 2 * arr[j] || arr[i] * 2 == arr[j]) {
+                    return true;
+                }
             }
         }
         return false;
