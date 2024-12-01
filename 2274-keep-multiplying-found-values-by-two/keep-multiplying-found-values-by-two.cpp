@@ -1,16 +1,13 @@
 class Solution {
 public:
     int findFinalValue(vector<int>& nums, int original) {
-        unordered_map<int, int> mpp;
-        for(int i=0;i<nums.size();i++){
-            mpp[nums[i]]++;
+        unordered_set<int> st;
+        for (int num : nums) {
+            st.insert(num);
         }
-        while(true){
-            if(mpp[original] == 0){
-                return original;
-            }
-            original<<=1;
+        while (st.find(original) != st.end()) {
+            original *= 2;
         }
-        return 0;
+        return original;
     }
 };
