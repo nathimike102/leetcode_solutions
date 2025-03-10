@@ -1,15 +1,12 @@
 class Solution {
 public:
     int minimumRecolors(string blocks, int k) {
-        int white = 0;
-        for(int i=0;i<k;i++){
-            if(blocks[i] == 'W') white++;
-        }
+        int white = count(blocks.begin(), blocks.begin() + k, 'W');
         int mini = white;
-        for(int i = k;i<blocks.size();i++){
-            if(blocks[i] == 'W') white++;
-            if(blocks[i-k] == 'W') white--;
-            mini = min(white, mini);
+        for (int i = k; i < blocks.size(); i++) {
+            white += blocks[i] == 'W';
+            white -= blocks[i - k] == 'W';
+            mini = min(mini, white);
         }
         return mini;
     }
