@@ -1,6 +1,6 @@
 class Solution {
-    #define pt pair<int, tuple<int, int, int>>
 public:
+    #define pt pair<int, tuple<int, int, int>>
     int minTimeToReach(vector<vector<int>>& moveTime) {
         int n = moveTime.size();
         int m = moveTime[0].size();
