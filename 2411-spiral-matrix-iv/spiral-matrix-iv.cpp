@@ -16,7 +16,7 @@ public:
         while(head){
             arr[i++] = head->val;
             head = head->next; 
-        }
+        } 
         int j = 0;
         vector<vector<int>> res(m, vector<int>(n, 0));
         int left = 0, right = n-1;
