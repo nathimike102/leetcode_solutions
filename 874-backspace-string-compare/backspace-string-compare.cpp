@@ -18,7 +18,6 @@ public:
     }
     bool backspaceCompare(string s, string t) {
         string str1 = get_min(s), str2 = get_min(t);
-        cout<<str1<<" "<<str2;
         return str1 == str2;
     }
 };
