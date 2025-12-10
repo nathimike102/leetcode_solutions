@@ -1,17 +1,16 @@
 class Solution {
 public:
+    int MOD = 1e9+7;
     int countPermutations(vector<int>& complexity) {
         int n = complexity.size();
-        if (*min_element(complexity.begin() + 1, complexity.end()) <=
-            complexity[0]) {
-            return 0;
+        long long ans = 1;
+
+        for (int i = 1; i < n; i++) {
+            if (complexity[i] <= complexity[0]) return 0;
+            ans *= i;
+            ans %= MOD;
         }
 
-        int mod = 1e9+7;
-        int ans = 1;
-        for (int i = 2; i < n; ++i) {
-            ans = static_cast<long long>(ans) * i % mod;
-        }
         return ans;
     }
 };
