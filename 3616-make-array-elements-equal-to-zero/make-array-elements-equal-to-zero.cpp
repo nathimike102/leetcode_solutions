@@ -1,33 +1,16 @@
 class Solution {
 public:
     int countValidSelections(vector<int>& nums) {
-        int res = 0, n = nums.size();
-        for (int i = 0; i < n; ++i) {
-            if (nums[i] != 0)
-                continue;
-            for (int j = 0; j < 2; ++j) {
-                vector<int> arr = nums;
-                int curr = i, dir = j == 0 ? -1 : 1;
-                bool valid = true;
-                while (curr >= 0 && curr < n) {
-                    if (arr[curr] == 0) {
-                        curr += dir;
-                    } else {
-                        arr[curr]--;
-                        dir = -dir;
-                        curr += dir;
-                    }
-                }
-                for (int v : arr) {
-                    if (v != 0) {
-                        valid = false;
-                        break;
-                    }
-                }
-                if (valid)
-                    res++;
-            }
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        int sofar = 0;
+        int ans = 0;
+        for (const int& num: nums) {
+            if (num == 0) {
+                if (sofar == (sum - sofar)) ans += 2;
+                else if (abs(sum - 2 * sofar) == 1) ans += 1;
+            } else sofar += num;
+            if (sofar * 2 - 1 > sum) break;
         }
-        return res;
+        return ans;
     }
 };
