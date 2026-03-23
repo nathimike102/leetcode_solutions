@@ -1,22 +1,23 @@
 class Solution {
 public:
     int minRemovals(vector<int>& nums, int target) {
-        for (int x : nums)
-            target ^= x;
-        
-        int maxi = 1<<14;
-        vector<int> dp(maxi, INT_MAX);
-        dp[0] = 0;
-        
-        for (int x : nums) {
-            for (int i = 0; i < maxi; i++) {
-                int j = i ^ x;
-                if (i > j) continue;
-                if (dp[j] != INT_MAX) dp[i] = min(dp[i], dp[j] + 1);
-                if (dp[i] != INT_MAX) dp[j] = min(dp[j], dp[i] + 1);
+        int n = nums.size();
+        unordered_map<int, int> mpp;
+        mpp[0] = 0;
+        for (int num : nums) {
+            auto mpp1 = mpp;
+            for (auto& [res, len] : mpp) {
+                int x = res ^ num;
+                if (!mpp1.count(x)) {
+                    mpp1[x] = len + 1;
+                } else {
+                    mpp1[x] = max(mpp1[x], len + 1);
+                }
             }
+            mpp = mpp1;
         }
-        
-        return dp[target] == INT_MAX ? -1 : dp[target];
+        if (!mpp.count(target))
+            return -1;
+        return n - mpp[target];
     }
 };
