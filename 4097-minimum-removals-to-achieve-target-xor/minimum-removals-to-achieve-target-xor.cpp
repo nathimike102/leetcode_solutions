@@ -1,24 +1,25 @@
 class Solution {
 public:
     int minRemovals(vector<int>& nums, int target) {
-        int n = nums.size();
-        int MAXX = 16384;
+        for (int x : nums)
+            target ^= x;
 
-        vector<int> dp(MAXX, -1);
+        int maxi = 1 << 14;
+        vector<int> dp(maxi, INT_MAX);
         dp[0] = 0;
 
-        for (int num : nums) {
-            vector<int> new_dp = dp;
-
-            for (int x = 0; x < MAXX; x++) {
-                if (dp[x] != -1) {
-                    int nx = x ^ num;
-                    new_dp[nx] = max(new_dp[nx], dp[x] + 1);
-                }
+        for (int x : nums) {
+            for (int i = 0; i < maxi; i++) {
+                int j = i ^ x;
+                if (i > j)
+                    continue;
+                if (dp[j] != INT_MAX)
+                    dp[i] = min(dp[i], dp[j] + 1);
+                if (dp[i] != INT_MAX)
+                    dp[j] = min(dp[j], dp[i] + 1);
             }
-            dp = new_dp;
         }
 
-        return dp[target] == -1 ? -1 : n - dp[target];
+        return dp[target] == INT_MAX ? -1 : dp[target];
     }
 };
