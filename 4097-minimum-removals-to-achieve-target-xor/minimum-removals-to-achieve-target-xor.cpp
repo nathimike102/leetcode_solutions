@@ -4,7 +4,7 @@ public:
         for (int x : nums)
             target ^= x;
         
-        int maxi = 16384;
+        int maxi = 1<<14;
         vector<int> dp(maxi, INT_MAX);
         dp[0] = 0;
         
